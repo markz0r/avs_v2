@@ -1,0 +1,33 @@
+{% extends "templates/base.html" %}
+{% block content %}
+<h2>Search for a specific user</h2>
+<form action="/search" method="POST">
+    {% csrf-token %}
+    <b>Search Name:</b> <input type="text" name="phrase" size="50" autofocus>
+    <input type="submit" value="Search">
+</form>
+<p>Search will look for username, first/last names and email addresses</p>
+<hr />
+{% if submitted %}
+<h2>Rejected Results</h2>
+<table class="list-table">
+    {% include "templates/rejected.html" %}
+</table>
+<hr />
+<h2>Unreviewed Results</h2>
+<table class="list-table">
+    {% include "templates/unreviewed.html" %}
+</table>
+<hr />
+<h2>Resolved Results</h2>
+<table class="list-table">
+    {% include "templates/resolved.html" %}
+</table>
+<hr />
+<h2>Accepted Results</h2>
+<table class="list-table">
+    {% include "templates/accepted.html" %}
+</table>
+{% endif %}
+{% script "/js/action.js" %}
+{% endblock %}

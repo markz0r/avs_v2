@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>AVS .v2</title>
+  </head>
+  <body>
+    <!-- scripts and styles -->
+    {% style "/css/screen.css" %}
+    {% style "/css/bootstrap.min.css" %}
+    {% style "/css/bootstrap-theme.min.css" %}
+    {% script "/js/jquery-2.1.1.min.js" %}
+    {% script "/js/bootstrap.min.js" %}
+    <!-- navbar -->
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="logo">[AVS_v2]</div>
+            <div class="navbar-collapse collapse ">
+                <ul class="nav navbar-nav">
+                    <li class="{{home-selected}}"><a href="{{servlet-context}}/">Home</a></li>
+                    <li class="{{search-selected}}"><a href="{{servlet-context}}/search">Search</a></li>
+                    <li class="{{list-selected}}"><a href="{{servlet-context}}/list">Lists</a></li>
+                    <li class="{{jobs-selected}}"><a href="{{servlet-context}}/jobs">Run Jobs</a></li>
+                </ul>
+                <div class="logout-butt"><a href="{{servlet-context}}/logout">Logout</a></div>
+            </div>
+          </div>
+        </div>
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <script type="text/javascript">
+      var context = "{{servlet-context}}";
+    </script>
+  </body>
+</html>
+

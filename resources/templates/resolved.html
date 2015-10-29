@@ -1,0 +1,25 @@
+{% block resolved %}
+        <tr><th class="id">ID</th><th class="actor">Actor</th><th>Updated</th><th class="app_id">App</th><th class="emp_id">Emp</th>
+            <th class="username">Username</th><th>Info</th><th>Detail</th><th>App</th><th class="thcent" colspan="2">Action</th>
+        {% for item in resolvedEntries %}
+            <tr class="{{item.app_id}}">
+                <td class="id">{{item.id}}</td>
+                <td class="actor">{{item.actor}}</td>
+                <td class="timestamp"><time>{{item.action_time|date:"yyyy-MM-dd"}}</time></td>
+                <td class="app_id">{{item.app_id}}</td>
+                <td class="emp_id">{{item.emp_id}}</td>
+                <td class="username">{{item.username}}</td>
+                <td class="email">{{item.email}}</td>
+                <td class="detail">{{item.detail}}</td>
+                <td class="app_name">{{item.app_name}}</td>
+                <td class="resolve"><a href="{{servlet-context}}/no-javascript">Resolve</a></td>
+                <td class="comment"><a href="{{servlet-context}}/no-javascript">Comment</a></td>
+            </tr>
+            <tr class="comment_row">
+                <td colspan="6"><textarea hidden id="{{item.id}}" name="{{selected_app_id}}" rows="4" cols="80"
+                    class="comment_val">{{item.comments}}</textarea>
+                </td>
+                <td><button type="button" class="comment_button" hidden>Submit</button></td>
+            </tr>
+        {% endfor %}
+{% endblock %}

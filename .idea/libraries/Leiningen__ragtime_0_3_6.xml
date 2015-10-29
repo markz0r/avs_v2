@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Leiningen: ragtime:0.3.6">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/ragtime/ragtime/0.3.6/ragtime-0.3.6.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

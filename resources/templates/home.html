@@ -1,0 +1,25 @@
+{% extends "templates/base.html" %}
+{% block content %}
+  <div class="jumbotron">
+    <h1>BomboraTech Access Validation System</h1>
+  </div>
+
+ <div class="row-fluid">
+    <div class="span8">
+      <table class="home-table">
+          <tr>
+              <th>App Name</th><th>Last Import</th>
+          </tr>
+      {% for item in AppList %}
+        <tr>
+          <td>{{item.name}}</td>
+          <td><time>{{item.last_import|date:"yyyy-MM-dd"}}</time></td>
+        </tr>
+      {% endfor %}
+     </table>
+      {% if error %}
+          <p class="error">{{error}}</p>
+      {% endif %}
+    </div>
+</div>
+{% endblock %}

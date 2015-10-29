@@ -1,0 +1,63 @@
+{% extends "templates/base.html" %}
+{% block content %}
+<h2>Lists</h2>
+<p>Select the type of entities you wish to list</p>
+<div class="input-container">
+<form action="/list" method="POST">
+    {% csrf-token %}
+    <div class="status-buttons">
+    <input type="radio" name="status" value="0"
+           {% ifequal status "0" %}checked="true"{% endifequal %} onchange="this.form.submit()">Unreviewed<br>
+    <input type="radio" name="status" value="2"
+           {% ifequal status "2" %}checked="true"{% endifequal %} onchange="this.form.submit()">Rejected<br>
+    <input type="radio" name="status" value="1"
+           {% ifequal status "1" %}checked="true"{% endifequal %} onchange="this.form.submit()">Accepted<br>
+    <input type="radio" name="status" value="3"
+           {% ifequal status "3" %}checked="true"{% endifequal %} onchange="this.form.submit()">Resolved<br>
+    </div>
+        <div class="app-select">
+            <select onchange="this.form.submit()" id="app-selector" name="app_id">
+                {% for item in appList %}
+                <option value="{{item.id}}"
+                        {% ifequal selected_app_id item.id %} selected {% endifequal %}>{{item.name}}</option>
+                {% endfor %}
+            </select>
+            <br />
+        </div>
+        <div class="app-select">
+            {% ifequal entry_type "unreviewed" %}
+                <button class="bulk-action" id="accept_bulk" value="0">Accept All Displayed</button>
+            {% endifequal %}
+            {% ifequal entry_type "accepted" %}
+                <button class="bulk-action" id="reject_bulk" value="1">Reject All Displayed</button>
+            {% endifequal %}
+            {% ifequal entry_type "rejected" %}
+            <button class="bulk-action" id="resolve_bulk" value="2">Resolve All Displayed</button>
+            {% endifequal %}
+        </div>
+</form>
+</div>
+<hr>
+
+<h2>List Results for {{selected_app_name}} - {{entry_type}} </h2>
+<table id="entries-table" class="list-table">
+{% ifequal entry_type "unreviewed" %}
+    {% include "templates/unreviewed.html" %}
+{% else %}
+{% ifequal entry_type "rejected" %}
+        {% include "templates/rejected.html" %}
+{% else %}
+{% ifequal entry_type "accepted" %}
+        {% include "templates/accepted.html" %}
+{% else %}
+    {% include "templates/resolved.html" %}
+{% endifequal %}
+{% endifequal %}
+{% endifequal %}
+</table>
+{% if error %}
+          <p class="error">{{error}}</p>
+{% endif %}
+{% script "/js/action.js" %}
+{% endblock %}
+

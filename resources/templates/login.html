@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>AVS .v2</title>
+  </head>
+  <body>
+    <!-- scripts and styles -->
+    {% style "/css/screen.css" %}
+    {% style "/css/bootstrap.min.css" %}
+    {% style "/css/bootstrap-theme.min.css" %}
+    {% script "/js/jquery-2.1.1.min.js" %}
+    {% script "/js/bootstrap.min.js" %}
+    <!-- navbar -->
+    <!-- navbar -->
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="logo">[AVS_v2]</div>
+        </div>
+      </div>
+    <div class="container">
+    <div class="content">
+        <form action="{{context}}/login" method="POST">
+            {% csrf-token %}
+        <label for="username">Username</label>
+        <input id="username"
+               name="username"
+               tabindex="1"
+               type="text"
+               value="{{username}}" autofocus /><br />
+        <div class="error">{{username-error}}</div>
+
+        <label for="password">Password</label>
+        <input id="password"
+               name="password"
+               tabindex="2"
+               type="password"
+               autocomplete="off" /><br />
+        <div class="error">{{error}}</div>
+        <input tabindex="3" type="submit" value="login" />
+    </form>
+</div>
+      </div>
+    <script type="text/javascript">
+      var context = "{{servlet-context}}";
+    </script>
+  </body>
+</html>
+

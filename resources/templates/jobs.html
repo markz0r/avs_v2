@@ -1,0 +1,62 @@
+{% extends "templates/base.html" %}
+{% block content %}
+    {% csrf-token %}
+<h2>Run Jobs</h2>
+
+<h3>Import Data</h3>
+
+ <div class="row-fluid">
+    <div class="span8">
+      <table class="job-table">
+          <th>ID</th><th>Name</th><th>Last Import</th><th>Source Freshness</th><th>Run Import</th>
+        {% for item in AppList %}
+          <tr class="{{item.id}}">
+              <td>{{item.id}}</td>
+              <td>{{item.name}}</td>
+              <td><time>{{item.last_import|date:"yyyy-MM-dd"}}</time></td>
+              <td><time>{{item.file_mod|date:"yyyy-MM-dd"}}</time></td>
+              <td><a class="import_job" href="{{item.id}}">{{item.name}}</a></td>
+          </tr>
+        {% endfor %}
+        </table>
+      {% if error %}
+          <p class="error">{{error}}</p>
+      {% endif %}
+    </div>
+</div>
+
+<div class="ldap-form" id="ldap-auth-form">
+    <div class="ldap-form-contents">
+    <form action="{{context}}/jobs" method="POST">
+            {% csrf-token %}
+        <h3>Please provide valid credentials to submit query<h3>
+            <hr />
+        <input id="app_id"
+               name="app_id"
+               type="hidden"
+               value="2" />
+        <label for="username">Username</label>
+        <input id="username"
+               name="username"
+               tabindex="1"
+               type="text"
+               value="{{username}}" /><br />
+        <div class="error">{{username-error}}</div>
+
+        <label for="password">Password</label>
+        <input id="password"
+               name="password"
+               tabindex="2"
+               type="password"
+               autocomplete="off" /><br />
+        <div class="error">{{error}}</div>
+            <hr />
+            <input id="runLDAP" class="ldap-button" tabindex="3" type="submit" value="Run Job" /><br />
+            <button id="cancelLDAP" type="button" class="ldap-button">Cancel</button>
+            <hr />
+    </form>
+    </div>
+</div>
+
+{% script "/js/action.js" %}
+{% endblock %}
